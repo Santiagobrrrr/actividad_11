@@ -24,10 +24,16 @@ while True:
                     if nit_owner not in owners:
                         break
                     else:
-                        print(f"NIT ya registraro, intente nuevamente.")
+                        print(f"NIT ya registrado, intente nuevamente.")
                 name_owner = input(f"Ingrese el nombre del propietario: ")
                 phone_owner = input(f"Ingrese el telefono del propietario: ")
                 count_owner = int(input(f"Ingrese la cantidad de vehículos del propietario: "))
+
+                owners[nit_owner] = {
+                    "name": name_owner,
+                    "phone": phone_owner,
+                    "vehicle": {}
+                }
 
                 for j in range(count_owner):
                     print(f"Vehículo #{j+1}")
@@ -44,26 +50,22 @@ while True:
                         "tax": tax_car
                     }
 
-                owners[nit_owner] = {
-                    "name": name_owner,
-                    "phone": phone_owner,
-                    "vehicle": plate[plate_car],
-                    "car": plate[plate_car]["make"],
-                    "model": plate[plate_car]["model"],
-                    "year": plate[plate_car]["year"],
-                    "tax": plate[plate_car]["tax"],
-                }
+                    owners[nit_owner]["vehicle"][plate_car] = plate[plate_car]
 
         case "2":
-            print("\nMostrar propietarios")
+            print(plate)
+            print(owners)
+            count = 1
             for nit_owner, data in owners.items():
-                print(f"\nPropietario #{i+1}")
+                print(f"\nPropietario #{count}")
                 print(f"NIT del propietario {nit_owner}")
                 print(f"Nombre del propietario: {data['name']}")
                 print(f"Número del propietario: {data['phone']}")
                 print(f"Vehículos: ")
-                for count_owner, dato in plate.items():
-                    print(f"- Placa: {plate_car.upper()} | {dato['make']} {dato['model']} ({dato['year']}) | Impuestos: {dato['tax']}")
+                for placa, info in data['vehicle'].items():
+                    print(
+                        f"- Placa: {placa.upper()} | {info['make']} {info['model']} ({info['year']}) | Impuestos: {info['tax']}")
+                count += 1
         case "3":
             print("\nBuscar propietario")
 
