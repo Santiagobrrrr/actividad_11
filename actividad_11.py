@@ -1,7 +1,8 @@
 owners = {}
+plate = {}
 
 while True:
-    print(f"- MENÚ DE CARRO E IMPUESTOS -")
+    print(f"\n- MENÚ DE CARRO E IMPUESTOS -")
     print(f"1. Agregar propietarios")
     print(f"2. Mostrar propietarios")
     print(f"3. Buscar propietario")
@@ -36,22 +37,33 @@ while True:
                     year_car = input(f"Ingrese el año del carro: ")
                     tax_car = input(f"¿Pago el impuesto? (si / no) ").lower()
 
-                owners[nit_owner] = {
-                    "name": name_owner,
-                    "phone": phone_owner,
-                    "number": count_owner,
-                    "vehicle": {
-                        "plate": plate_car,
+                    plate[plate_car] = {
                         "make": make_car,
                         "model": model_car,
                         "year": year_car,
                         "tax": tax_car
                     }
 
+                owners[nit_owner] = {
+                    "name": name_owner,
+                    "phone": phone_owner,
+                    "vehicle": plate[plate_car],
+                    "car": plate[plate_car]["make"],
+                    "model": plate[plate_car]["model"],
+                    "year": plate[plate_car]["year"],
+                    "tax": plate[plate_car]["tax"],
                 }
 
         case "2":
             print("\nMostrar propietarios")
+            for nit_owner, data in owners.items():
+                print(f"\nPropietario #{i+1}")
+                print(f"NIT del propietario {nit_owner}")
+                print(f"Nombre del propietario: {data['name']}")
+                print(f"Número del propietario: {data['phone']}")
+                print(f"Vehículos: ")
+                for count_owner in range(owners[nit_owner]["vehicle"]):
+                    print(f"- Placa: {plate_car.upper()} | {data['vehicle']['make']} {data['vehicle']['model']} ({data['vehicle']['year']}) | IMPUESTOS: {data['vehicle']['tax']} ")
 
         case "3":
             print("\nBuscar propietario")
