@@ -62,9 +62,8 @@ while True:
                 print(f"Nombre del propietario: {data['name']}")
                 print(f"Número del propietario: {data['phone']}")
                 print(f"Vehículos: ")
-                for count_owner in range(owners[nit_owner]["vehicle"]):
-                    print(f"- Placa: {plate_car.upper()} | {data['vehicle']['make']} {data['vehicle']['model']} ({data['vehicle']['year']}) | IMPUESTOS: {data['vehicle']['tax']} ")
-
+                for count_owner, dato in plate.items():
+                    print(f"- Placa: {plate_car.upper()} | {dato['make']} {dato['model']} ({dato['year']}) | Impuestos: {dato['tax']}")
         case "3":
             print("\nBuscar propietario")
 
