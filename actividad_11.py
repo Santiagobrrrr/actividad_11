@@ -53,8 +53,6 @@ while True:
                     owners[nit_owner]["vehicle"][plate_car] = plate[plate_car]
 
         case "2":
-            print(plate)
-            print(owners)
             count = 1
             for nit_owner, data in owners.items():
                 print(f"\nPropietario #{count}")
@@ -64,13 +62,34 @@ while True:
                 print(f"Vehículos: ")
                 for placa, info in data['vehicle'].items():
                     print(
-                        f"- Placa: {placa.upper()} | {info['make']} {info['model']} ({info['year']}) | Impuestos: {info['tax']}")
+                        f"- Placa: {placa.upper()} | {info['make'].upper()} {info['model'].upper()} ({info['year'].upper()}) | Impuestos: {info['tax'].upper()}")
                 count += 1
         case "3":
             print("\nBuscar propietario")
+            nit_user = input(f"Ingrese el NIT: ")
+            if nit_user in owners:
+                print(f"Nombre del propietario: {owners[nit_user]['name']}")
+                print(f"Teléfono del propietario: {owners[nit_user]['phone']}")
+                print(f"Vehículos: ")
+                for placa, info in owners[nit_user]["vehicle"].items():
+                    print(f"Placa: {placa.upper()} | {info['make'].upper()} {info['model'].upper()} | {info['year']} | Impuestos: {info['tax'].upper()}")
+
+            else:
+                print("\nNo se encontro ningun propietario.")
 
         case "4":
             print("\nHistorial de vehículos")
+            count_yes = 0
+            count_no = 0
+            for owner_data in owners.values():
+                for l, vehicle_info in owner_data["vehicle"].items():
+                    if vehicle_info["tax"] == "si":
+                        count_yes += 1
+                    elif vehicle_info["tax"] == "no":
+                        count_no += 1
+            print(f"Carros que han pagado impuestos: {count_yes}")
+            print(f"Carros que no han pagado impuestos: {count_no}")
+
 
         case "5":
             print("\nSaliendo del programa")
